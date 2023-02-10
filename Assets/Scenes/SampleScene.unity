@@ -354,7 +354,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 465208947}
   m_LocalRotation: {x: -0.12316852, y: 0, z: 0, w: 0.9923858}
-  m_LocalPosition: {x: -7.05, y: 1.26, z: 9.97}
+  m_LocalPosition: {x: -22.53, y: 7.27, z: 9.97}
   m_LocalScale: {x: 4.29, y: 1, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -531,14 +531,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.16158839, y: 0.4482801, z: -0.082760125, w: 0.8752628}
-  m_LocalPosition: {x: -4.35, y: 2.35, z: -3.1899996}
+  m_LocalRotation: {x: 0.16172707, y: 0.5416675, z: -0.10710567, w: 0.81790525}
+  m_LocalPosition: {x: -3.6, y: 1.7, z: -4.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1200111315}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 20.92, y: 54.24, z: 0}
+  m_LocalEulerAnglesHint: {x: 22.37, y: 67.03, z: 0}
 --- !u!1 &1200111312 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2052079779579663132, guid: ba4d5a656b2726f45b9dedb6b2e6c9fa, type: 3}
@@ -563,8 +563,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frontWheel: {fileID: 190449273}
   backWheel: {fileID: 392052128}
-  maxMotorTorque: 200
-  maxSteeringAngle: 5
+  bike: {fileID: 1200111312}
+  maxMotorTorque: 100
+  maxSteeringAngle: 10
+--- !u!114 &1200111319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200111312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 902b767a45c917245b420593501210c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drawInBuild: 0
+  displayGraphs: 1
+  displayLogs: 1
+  backgroundColor: {r: 0, g: 0, b: 0, a: 0.7}
+  graphs: []
 --- !u!1 &1304042603
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,7 +690,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1304042603}
   m_LocalRotation: {x: 0.12316852, y: 0, z: 0, w: 0.9923858}
-  m_LocalPosition: {x: -7.05, y: 1.26, z: -9.97}
+  m_LocalPosition: {x: -22.53, y: 7.27, z: -9.97}
   m_LocalScale: {x: 4.29, y: 1, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -771,7 +789,7 @@ Transform:
   m_GameObject: {fileID: 1947699202}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 4.29, y: 1, z: 100}
+  m_LocalScale: {x: 20, y: 1, z: 1000}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -828,10 +846,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bike
       objectReference: {fileID: 0}
-    - target: {fileID: 2652197826684602383, guid: ba4d5a656b2726f45b9dedb6b2e6c9fa, type: 3}
-      propertyPath: m_SuspensionSpring.targetPosition
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2833739024449868735, guid: ba4d5a656b2726f45b9dedb6b2e6c9fa, type: 3}
       propertyPath: m_SuspensionDistance
       value: 0
@@ -866,7 +880,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4709048391036812641, guid: ba4d5a656b2726f45b9dedb6b2e6c9fa, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10.22
+      value: -466.77
       objectReference: {fileID: 0}
     - target: {fileID: 4709048391036812641, guid: ba4d5a656b2726f45b9dedb6b2e6c9fa, type: 3}
       propertyPath: m_LocalRotation.w
@@ -899,10 +913,6 @@ PrefabInstance:
     - target: {fileID: 6997001376340690524, guid: ba4d5a656b2726f45b9dedb6b2e6c9fa, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7081098203574329317, guid: ba4d5a656b2726f45b9dedb6b2e6c9fa, type: 3}
-      propertyPath: m_SuspensionSpring.targetPosition
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7734212818099187078, guid: ba4d5a656b2726f45b9dedb6b2e6c9fa, type: 3}
       propertyPath: m_RootOrder

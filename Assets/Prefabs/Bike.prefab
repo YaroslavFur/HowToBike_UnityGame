@@ -76,7 +76,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2052079779579663132}
   serializedVersion: 2
-  m_Mass: 100
+  m_Mass: 200
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -201,7 +201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 245162439482223113, guid: b3b1b984ab6885f459474069ba3bb046, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.5
+      value: -2.4
       objectReference: {fileID: 0}
     - target: {fileID: 245162439482223113, guid: b3b1b984ab6885f459474069ba3bb046, type: 3}
       propertyPath: m_LocalRotation.w
@@ -263,7 +263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 245162439482223113, guid: b3b1b984ab6885f459474069ba3bb046, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.5
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 245162439482223113, guid: b3b1b984ab6885f459474069ba3bb046, type: 3}
       propertyPath: m_LocalRotation.w
@@ -296,6 +296,10 @@ PrefabInstance:
     - target: {fileID: 4231472368793082388, guid: b3b1b984ab6885f459474069ba3bb046, type: 3}
       propertyPath: m_Name
       value: FrontWheel
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661276894932333617, guid: b3b1b984ab6885f459474069ba3bb046, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4985446302684872682, guid: b3b1b984ab6885f459474069ba3bb046, type: 3}
       propertyPath: m_Radius
