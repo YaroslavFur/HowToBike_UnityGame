@@ -23,29 +23,51 @@ public class BikeScript : MonoBehaviour
 
     // degrees per second
     float wheelRotationSpeed = 0;
+    float mouseStartRotationPosition = 0, wheelStartRotationPosition = 0;
+    bool steeringMode = false;
 
-    [DebugGUIGraph(group: 0, min: 0, max: 3, r: 0, g: 1, b: 0, autoScale: false)]
+    //[DebugGUIGraph(group: 0, min: 0, max: 3, r: 0, g: 1, b: 0, autoScale: false)]
     float wheelSlipGraph;
 
-    [DebugGUIGraph(group: 1, min: 0, max: 10f, r: 0, g: 0, b: 1, autoScale: true)]
+    //[DebugGUIGraph(group: 1, min: 0, max: 10f, r: 0, g: 0, b: 1, autoScale: true)]
     float bikeSpeedGraph;
 
-    [DebugGUIGraph(group: 2, min: 0, max: 0f, r: 0, g: 1, b: 0, autoScale: true)]
+    //[DebugGUIGraph(group: 2, min: 0, max: 0f, r: 0, g: 1, b: 0, autoScale: true)]
     float tiltGraph;
 
-    [DebugGUIGraph(group: 3, min: 0, max: 0f, r: 0, g: 1, b: 0, autoScale: true)]
+    //[DebugGUIGraph(group: 3, min: 0, max: 0f, r: 0, g: 1, b: 0, autoScale: true)]
     float wheelRotationGraph;
 
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        WheelCollider wheelCollider = frontWheel.GetComponentInChildren<WheelCollider>();
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            if (steeringMode == false)
+                steeringMode = true;
+            else
+                steeringMode = false;
+            float mouseX = Input.mousePosition.x / Screen.width; // gets the mouse x position
+            mouseStartRotationPosition = mouseX;
+            wheelStartRotationPosition = wheelCollider.steerAngle;
+            DebugGUI.LogPersistent("mouseStartRotationPosition", "mouseStartRotationPosition " + (mouseStartRotationPosition).ToString("F3"));
+            DebugGUI.LogPersistent("wheelStartRotationPosition", "wheelStartRotationPosition " + (wheelStartRotationPosition).ToString("F3"));
+        }
+
+        if (steeringMode) // checks if left mouse button is down
+        {
+            float mouseX = Input.mousePosition.x / Screen.width; // gets the mouse x position
+            float rotationDifferenceFromStart = mouseX - mouseStartRotationPosition;
+
+            wheelCollider.steerAngle = wheelStartRotationPosition + (rotationDifferenceFromStart * 90); // assigns the mouse x position to the variable
+        }
     }
 
     public void FixedUpdate()
@@ -104,6 +126,7 @@ public class BikeScript : MonoBehaviour
 
     public void CalculateFrontWheelForces(WheelCollider wheelCollider, GameObject bike)
     {
+        /*
         float rotationForce = 0;
         float wheelRotation = wheelCollider.steerAngle;
         float wheelMass = wheelCollider.mass;
@@ -166,6 +189,7 @@ public class BikeScript : MonoBehaviour
         wheelCollider.steerAngle = wheelRotation + wheelRotationSpeed * Time.deltaTime;
         DebugGUI.LogPersistent("wheelRotation", "wheelRotation " + (wheelRotation).ToString("F3"));
         DebugGUI.LogPersistent("steerAngle", "steerAngle " + (wheelCollider.steerAngle).ToString("F3"));
+        */
 
         if (wheelCollider.transform.eulerAngles.z > 180)
             tiltGraph = wheelCollider.transform.eulerAngles.z - 360;

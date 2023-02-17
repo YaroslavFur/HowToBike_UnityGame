@@ -564,13 +564,13 @@ MonoBehaviour:
   frontWheel: {fileID: 190449273}
   backWheel: {fileID: 392052128}
   bike: {fileID: 1200111312}
-  maxMotorTorque: 200
+  maxMotorTorque: 150
   maxSteeringAngle: 7
   wheelRotationDamper: 0.075
   RotateForceMultiplier: 10
   StraighteningForceMultiplier: 0.05
   DriverForceMultiplier: 30
-  keepSpeed: 5.1
+  keepSpeed: 6
 --- !u!114 &1200111319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -755,7 +755,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31c1f7ddca7b15547bed5bbe68ff1c9b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -794,7 +794,7 @@ Transform:
   m_GameObject: {fileID: 1947699202}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 50, y: 1, z: 5000}
+  m_LocalScale: {x: 100, y: 1, z: 5000}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -885,7 +885,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4709048391036812641, guid: ba4d5a656b2726f45b9dedb6b2e6c9fa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4709048391036812641, guid: ba4d5a656b2726f45b9dedb6b2e6c9fa, type: 3}
       propertyPath: m_LocalPosition.z
