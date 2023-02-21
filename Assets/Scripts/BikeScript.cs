@@ -3,199 +3,144 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class BikeScript : MonoBehaviour
 {
-    public GameObject frontWheel;
-    public GameObject backWheel;
-    public GameObject bike;
-    public float maxMotorTorque; // maximum torque the motor can apply to wheel
-    public float maxSteeringAngle; // maximum steer angle the wheel can have
-    [Range(0, 1)]
-    public float wheelRotationDamper = 0.05f;
-    [Range(0, 10)]
-    public float RotateForceMultiplier;
-    [Range(0, 10)]
-    public float StraighteningForceMultiplier;
-    [Range(0, 30)]
-    public float DriverForceMultiplier;
-    [Range(0, 15)]
-    public float keepSpeed;
+    [SerializeField] private GameObject frontWheel;
+    [SerializeField] private GameObject backWheel;
+    [SerializeField] private GameObject fork;
+    [SerializeField] private GameObject bike;
 
-    // degrees per second
-    float wheelRotationSpeed = 0;
-    float mouseStartRotationPosition = 0, wheelStartRotationPosition = 0;
-    bool steeringMode = false;
+    [SerializeField] private float targetMaximumSpeed;
+    [SerializeField] private float accelerationMotorForce;
+    [SerializeField] private float targetBrakeSpeed;
+    [SerializeField] private float brakeMotorForce;
+    [SerializeField, Range(0, 5)] private float steeringSensitivity;
+    [SerializeField] private float steeringTargetSpeed;
+    [SerializeField] private float steeringForce;
 
-    //[DebugGUIGraph(group: 0, min: 0, max: 3, r: 0, g: 1, b: 0, autoScale: false)]
-    float wheelSlipGraph;
+    private bool acceleration = false, braking = false, steering = false;
+    private float mouseInitialSteeringPosition = 0, forkInitialSteeringAngle = 0;
 
-    //[DebugGUIGraph(group: 1, min: 0, max: 10f, r: 0, g: 0, b: 1, autoScale: true)]
-    float bikeSpeedGraph;
+    [DebugGUIGraph(group: 0, min: 0, max: 3, r: 0, g: 1, b: 0, autoScale: false)]
+    private float wheelSlipGraph;
 
-    //[DebugGUIGraph(group: 2, min: 0, max: 0f, r: 0, g: 1, b: 0, autoScale: true)]
-    float tiltGraph;
+    [DebugGUIGraph(group: 1, min: 0, max: 10f, r: 0, g: 1, b: 0, autoScale: true)]
+    private float bikeSpeedGraph;
 
-    //[DebugGUIGraph(group: 3, min: 0, max: 0f, r: 0, g: 1, b: 0, autoScale: true)]
-    float wheelRotationGraph;
+    [DebugGUIGraph(group: 2, min: 0, max: 0f, r: 0, g: 1, b: 0, autoScale: true)]
+    private float forkCurrentAngle;
 
-    // Start is called before the first frame update
+    [DebugGUIGraph(group: 2, min: 0, max: 0f, r: 1, g: 0, b: 0, autoScale: true)]
+    private float forkTargetAngle;
+
     void Start()
     {
+        HingeJoint backWheelJoint = backWheel.GetComponent<HingeJoint>();
+        backWheelJoint.useMotor = true;
+        HingeJoint forkJoint = fork.GetComponent<HingeJoint>();
+        forkJoint.useMotor = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        WheelCollider wheelCollider = frontWheel.GetComponentInChildren<WheelCollider>();
+        if (Input.GetKey(KeyCode.UpArrow))
+            acceleration = true;
+        else
+            acceleration = false;
 
+        if (Input.GetKey(KeyCode.DownArrow))
+            braking = true;
+        else
+            braking = false;
+
+        // true in only the frame when LMB *starts* being pressed
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (steeringMode == false)
-                steeringMode = true;
+            if (steering == false)
+            {
+                steering = true;
+
+                mouseInitialSteeringPosition = Input.mousePosition.x / Screen.width;
+                forkInitialSteeringAngle = Math.Clamp(fork.GetComponent<HingeJoint>().angle, -90, 90);
+
+                DebugGUI.LogPersistent("mousePivotSteeringPosition", "mousePivotSteeringPosition " + (mouseInitialSteeringPosition).ToString("F3"));
+                DebugGUI.LogPersistent("forkPivotSteeringPosition", "forkPivotSteeringPosition " + (forkInitialSteeringAngle).ToString("F3"));
+            }
             else
-                steeringMode = false;
-            float mouseX = Input.mousePosition.x / Screen.width; // gets the mouse x position
-            mouseStartRotationPosition = mouseX;
-            wheelStartRotationPosition = wheelCollider.steerAngle;
-            DebugGUI.LogPersistent("mouseStartRotationPosition", "mouseStartRotationPosition " + (mouseStartRotationPosition).ToString("F3"));
-            DebugGUI.LogPersistent("wheelStartRotationPosition", "wheelStartRotationPosition " + (wheelStartRotationPosition).ToString("F3"));
-        }
-
-        if (steeringMode) // checks if left mouse button is down
-        {
-            float mouseX = Input.mousePosition.x / Screen.width; // gets the mouse x position
-            float rotationDifferenceFromStart = mouseX - mouseStartRotationPosition;
-
-            wheelCollider.steerAngle = wheelStartRotationPosition + (rotationDifferenceFromStart * 90); // assigns the mouse x position to the variable
+            {
+                steering = false;
+            }
         }
     }
 
     public void FixedUpdate()
     {
-        float motor = 0;
+        HingeJoint backWheelJoint = backWheel.GetComponent<HingeJoint>();
+        JointMotor backWheelMotor = backWheelJoint.motor;
 
-        if (Input.GetKey(KeyCode.DownArrow))
-            motor -= maxMotorTorque;
-        if (Input.GetKey(KeyCode.UpArrow))
-            if (bikeSpeedGraph < keepSpeed)
-                motor += maxMotorTorque;
+        if (acceleration)
+        {
+            backWheelMotor.targetVelocity = targetMaximumSpeed;
+            backWheelMotor.force = accelerationMotorForce;
+        }
+        else if (braking)
+        {
+            backWheelMotor.targetVelocity = targetBrakeSpeed;
+            backWheelMotor.force = brakeMotorForce;
+        }
+        else
+        {
+            backWheelMotor.targetVelocity = 0;
+            backWheelMotor.force = 0;
+        }
 
-        /*
-        if (frontWheel.transform.rotation.z > direction)
-            steering -= maxSteeringAngle;
-        if (frontWheel.transform.rotation.z < direction)
-            steering += maxSteeringAngle;
+        backWheelJoint.motor = backWheelMotor;
 
-        if (Input.GetKey(KeyCode.LeftArrow))
-            direction += 0.001f;
-        if (Input.GetKey(KeyCode.RightArrow))
-            direction -= 0.001f;
-        */
+        HingeJoint forkJoint = fork.GetComponent<HingeJoint>();
+        JointMotor forkMotor = forkJoint.motor;
 
-        backWheel.GetComponentInChildren<WheelCollider>().motorTorque = motor;
+        forkMotor.targetVelocity = 0;
+        forkMotor.force = 0;
+        if (steering)
+        {
 
-        ApplyLocalPositionToVisuals(frontWheel.GetComponentInChildren<WheelCollider>(), frontWheel.transform.Find("Wheel Mesh"));
-        ApplyLocalPositionToVisuals(backWheel.GetComponentInChildren<WheelCollider>(), backWheel.transform.Find("Wheel Mesh"));
+            float mouseXposition = Input.mousePosition.x / Screen.width;
+            float mousePositionDifference = mouseXposition - mouseInitialSteeringPosition;
+            float targetForkAngle = Math.Clamp(forkInitialSteeringAngle + (mousePositionDifference * 180 * steeringSensitivity), -90, 90);
+            float angleDifference = targetForkAngle - forkJoint.angle;
 
-        double wheelSpeed = backWheel.GetComponentInChildren<WheelCollider>().radius * 2 * Math.PI * backWheel.GetComponentInChildren<WheelCollider>().rpm / 60;
+            Debug.Log("1 targetAngle: " + targetForkAngle + " CurrentAngle: " + forkJoint.angle + " AngleDifference: " + angleDifference + " ForkCurrentVelocity: " + forkJoint.velocity + " ForkTargetVelocity: " + forkMotor.targetVelocity + " ForkForce: " + forkMotor.force);
+
+            if (angleDifference > 0)
+            {
+                // formula (y=1-e^-x) - the closer x to 0, the less y is
+                forkMotor.targetVelocity = (float)(steeringTargetSpeed * (1 - Math.Pow(Math.E, -angleDifference / 5)));
+                forkMotor.force = (float)(steeringForce * (1 - Math.Pow(Math.E, -angleDifference / 5)));
+            }
+            else if (angleDifference < 0)
+            {
+                forkMotor.targetVelocity = (float)(-steeringTargetSpeed * (1 - Math.Pow(Math.E, angleDifference / 5)));
+                forkMotor.force = (float)(steeringForce * (1 - Math.Pow(Math.E, angleDifference / 5)));
+            }
+            Debug.Log("2 targetAngle: " + targetForkAngle + " CurrentAngle: " + forkJoint.angle + " AngleDifference: " + angleDifference + " ForkCurrentVelocity: " + forkJoint.velocity + " ForkTargetVelocity: " + forkMotor.targetVelocity + " ForkForce: " + forkMotor.force);
+
+            forkTargetAngle = targetForkAngle;
+            forkCurrentAngle = forkJoint.angle;
+
+        }
+        forkJoint.motor = forkMotor;
+
+        DebugGUI.LogPersistent("wheelTorqueTarget", "wheelTorqueTarget " + (backWheelMotor.force).ToString("F3"));
+        DebugGUI.LogPersistent("wheelTorqueTarget", "wheelTorqueTarget " + (backWheelMotor.force).ToString("F3"));
+        DebugGUI.LogPersistent("wheelTorque", "wheelTorque " + (backWheel.GetComponentInChildren<HingeJoint>().motor.force).ToString("F3"));
+
+        double wheelSpeed = /*radius*/ 1 * 2 * Math.PI * (backWheelJoint.velocity / 360.0f);
         bikeSpeedGraph = (float)bike.transform.InverseTransformDirection(bike.GetComponent<Rigidbody>().velocity).z;
         wheelSlipGraph = (float)Math.Round(wheelSpeed / bikeSpeedGraph, 2);
 
-        Debug.Log("BackWheel:" +
-            " Wheel speed: " + Math.Round(wheelSpeed, 2) + 
-            " Bike speed: " + Math.Round(bikeSpeedGraph, 2) + 
-            " Wheel Slip: " + wheelSlipGraph);
-
-        DebugGUI.LogPersistent("wheelSlip", "wheelSlip " + (wheelSlipGraph).ToString("F3"));
+        DebugGUI.LogPersistent("wheelSpeed", "wheelSpeed " + (wheelSpeed).ToString("F3"));
         DebugGUI.LogPersistent("speed", "speed " + (bikeSpeedGraph).ToString("F3"));
-
-        CalculateFrontWheelForces(frontWheel.GetComponentInChildren<WheelCollider>(), bike);
-    }
-
-    // finds the corresponding visual wheel
-    // correctly applies the transform
-    public void ApplyLocalPositionToVisuals(WheelCollider wheelCollider, Transform wheelMesh)
-    {
-        Vector3 position;
-        Quaternion rotation;
-        wheelCollider.GetWorldPose(out position, out rotation);
-
-        wheelMesh.transform.position = position;
-        wheelMesh.transform.rotation = rotation;
-    }
-
-    public void CalculateFrontWheelForces(WheelCollider wheelCollider, GameObject bike)
-    {
-        /*
-        float rotationForce = 0;
-        float wheelRotation = wheelCollider.steerAngle;
-        float wheelMass = wheelCollider.mass;
-        Rigidbody bikeRB = bike.GetComponent<Rigidbody>();
-        float bikeVelocity = (float)bikeRB.velocity.magnitude;
-
-        DebugGUI.LogPersistent("tilt", "tilt " + (wheelCollider.transform.eulerAngles.z).ToString("F3"));
-
-        // force that turns wheel aside when a bike is tilted
-        // depends on: weight of wheel, bike tilt angle, wheel rotation angle
-        // formula: F = m*g*sin(bike tilt angle - wheel rotation angle)
-        { 
-            rotationForce += (float)(
-                wheelMass * 
-                -Physics.gravity.y * 
-                -Math.Sin((wheelCollider.transform.rotation.eulerAngles.z * 2 + wheelRotation) * (Math.PI / 180)) *
-                RotateForceMultiplier);
-
-            DebugGUI.LogPersistent("rotationForce", "rotationForce " + (rotationForce).ToString("F3"));
-        }
-
-        // force that turns wheel to straight position when bike is moving forward
-        // depends on: rotation angle, bike velocity
-        // formula: F = m*g*sin(wheel rotation angle)*speed
-        {
-            float straighteningForce = (float)(
-                wheelMass *
-                -Physics.gravity.y *
-                -Math.Sin((wheelRotation) * (Math.PI / 180)) *
-                bikeVelocity *
-                StraighteningForceMultiplier);
-
-            DebugGUI.LogPersistent("SinOfWheelRotation", "SinOfWheelRotation " + (Math.Sin((wheelRotation) * (Math.PI / 180))).ToString("F3"));
-            DebugGUI.LogPersistent("bikeVelocity", "bikeVelocity " + (bikeVelocity).ToString("F3"));
-
-            DebugGUI.LogPersistent("straighteningForce", "straighteningForce " + (straighteningForce).ToString("F3"));
-
-            rotationForce += straighteningForce;
-        }
-
-        // force produced by the driver
-        {
-            float driverForce = 0;
-            if (Input.GetKey(KeyCode.LeftArrow))
-                driverForce = -1;
-            if (Input.GetKey(KeyCode.RightArrow))
-                driverForce = 1;
-            driverForce *= DriverForceMultiplier;
-
-            DebugGUI.LogPersistent("driverForce", "driverForce " + (driverForce).ToString("F3"));
-            rotationForce += driverForce;
-        }
-        
-        DebugGUI.LogPersistent("finalRotationForce", "finalRotationForce " + (rotationForce).ToString("F3"));
-        float rotationAcceleration = rotationForce / wheelMass;
-        DebugGUI.LogPersistent("rotationAcceleration", "rotationAcceleration " + (rotationAcceleration).ToString("F3"));
-        wheelRotationSpeed += rotationAcceleration;
-        wheelRotationSpeed *= (1 - wheelRotationDamper);
-        
-        wheelCollider.steerAngle = wheelRotation + wheelRotationSpeed * Time.deltaTime;
-        DebugGUI.LogPersistent("wheelRotation", "wheelRotation " + (wheelRotation).ToString("F3"));
-        DebugGUI.LogPersistent("steerAngle", "steerAngle " + (wheelCollider.steerAngle).ToString("F3"));
-        */
-
-        if (wheelCollider.transform.eulerAngles.z > 180)
-            tiltGraph = wheelCollider.transform.eulerAngles.z - 360;
-        else
-            tiltGraph = wheelCollider.transform.eulerAngles.z;
-
-        wheelRotationGraph = wheelCollider.steerAngle;
+        DebugGUI.LogPersistent("wheelSlip", "wheelSlip " + (wheelSlipGraph).ToString("F3"));
     }
 }
