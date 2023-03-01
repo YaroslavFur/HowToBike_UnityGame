@@ -9,7 +9,7 @@ public class BikeScript : MonoBehaviour
     [SerializeField] private GameObject frontWheel;
     [SerializeField] private GameObject backWheel;
     [SerializeField] private GameObject fork;
-    [SerializeField] private GameObject bike;
+    [SerializeField] private GameObject frame;
 
     [SerializeField] private float targetMaximumSpeed;
     [SerializeField] private float accelerationMotorForce;
@@ -136,7 +136,7 @@ public class BikeScript : MonoBehaviour
         DebugGUI.LogPersistent("wheelTorque", "wheelTorque " + (backWheel.GetComponentInChildren<HingeJoint>().motor.force).ToString("F3"));
 
         double wheelSpeed = /*radius*/ 1 * 2 * Math.PI * (backWheelJoint.velocity / 360.0f);
-        bikeSpeedGraph = (float)bike.transform.InverseTransformDirection(bike.GetComponent<Rigidbody>().velocity).z;
+        bikeSpeedGraph = (float)frame.transform.InverseTransformDirection(frame.GetComponent<Rigidbody>().velocity).z;
         wheelSlipGraph = (float)Math.Round(wheelSpeed / bikeSpeedGraph, 2);
 
         DebugGUI.LogPersistent("wheelSpeed", "wheelSpeed " + (wheelSpeed).ToString("F3"));
