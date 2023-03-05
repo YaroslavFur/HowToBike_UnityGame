@@ -151,7 +151,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 15729608}
   serializedVersion: 2
-  m_Mass: 20
+  m_Mass: 1000
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -229,14 +229,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 15729608}
-  m_LocalRotation: {x: 0, y: -0.2760567, z: 0, w: 0.9611414}
-  m_LocalPosition: {x: -6.2, y: 5.32, z: -446.6}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.8, y: 0.5, z: -486.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: -32.05, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &204435461 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2183961587478962603, guid: ba4d5a656b2726f45b9dedb6b2e6c9fa, type: 3}
@@ -268,13 +268,14 @@ MonoBehaviour:
   backWheel: {fileID: 204435461}
   fork: {fileID: 400838696}
   frame: {fileID: 1071256579}
+  pedals: {fileID: 1757884699}
   targetMaximumSpeed: 10000
-  accelerationMotorForce: 130
+  accelerationMotorForce: 120
   targetBrakeSpeed: 0
   brakeMotorForce: 10000
   steeringSensitivity: 1
   steeringTargetSpeed: 1000
-  steeringForce: 500
+  steeringForce: 200
 --- !u!114 &407374055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,7 +446,7 @@ Light:
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
-    m_Bias: 0.05
+    m_Bias: 0
     m_NormalBias: 0.4
     m_NearPlane: 0.2
     m_CullingMatrixOverride:
@@ -576,14 +577,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.22194849, y: -0, z: -0, w: 0.97505844}
-  m_LocalPosition: {x: 0, y: 1.4854438, z: -1.6987915}
+  m_LocalRotation: {x: 0.100851275, y: -0.44253147, z: 0.050008614, w: 0.8896596}
+  m_LocalPosition: {x: 0.7015283, y: 0.43759042, z: -0.49273682}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1071256581}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 25.647, y: 0, z: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 25.99, y: 0, z: 0}
 --- !u!1 &1071256579 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5999356998100399956, guid: ba4d5a656b2726f45b9dedb6b2e6c9fa, type: 3}
@@ -719,6 +720,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 904389522758249970, guid: ba4d5a656b2726f45b9dedb6b2e6c9fa, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2052079779579663132, guid: ba4d5a656b2726f45b9dedb6b2e6c9fa, type: 3}
       propertyPath: m_Name
       value: Bike
@@ -735,6 +740,10 @@ PrefabInstance:
       propertyPath: m_CollisionDetection
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4445739900483747769, guid: ba4d5a656b2726f45b9dedb6b2e6c9fa, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4709048391036812641, guid: ba4d5a656b2726f45b9dedb6b2e6c9fa, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -745,7 +754,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4709048391036812641, guid: ba4d5a656b2726f45b9dedb6b2e6c9fa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.31
+      value: 0.292
       objectReference: {fileID: 0}
     - target: {fileID: 4709048391036812641, guid: ba4d5a656b2726f45b9dedb6b2e6c9fa, type: 3}
       propertyPath: m_LocalPosition.z
@@ -779,11 +788,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5305969161264799426, guid: ba4d5a656b2726f45b9dedb6b2e6c9fa, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba4d5a656b2726f45b9dedb6b2e6c9fa, type: 3}
 --- !u!1 &1622977378 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3842345883157323247, guid: ba4d5a656b2726f45b9dedb6b2e6c9fa, type: 3}
+  m_PrefabInstance: {fileID: 1432418149}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1757884699 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1999494061283539488, guid: ba4d5a656b2726f45b9dedb6b2e6c9fa, type: 3}
   m_PrefabInstance: {fileID: 1432418149}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1947699202
