@@ -24,17 +24,8 @@ public class BikeScript : MonoBehaviour
     private bool acceleration = false, braking = false, steering = false;
     private float mouseInitialSteeringPosition = 0, forkInitialSteeringAngle = 0;
 
-    //[DebugGUIGraph(group: 0, min: 0, max: 3, r: 0, g: 1, b: 0, autoScale: false)]
-    //private float wheelSlipGraph;
-
     [DebugGUIGraph(group: 1, min: 0, max: 10f, r: 0, g: 1, b: 0, autoScale: true)]
     private float bikeSpeedGraph;
-
-    //[DebugGUIGraph(group: 2, min: 0, max: 0f, r: 0, g: 1, b: 0, autoScale: true)]
-    //private float forkCurrentAngle;
-
-    //[DebugGUIGraph(group: 2, min: 0, max: 0f, r: 1, g: 0, b: 0, autoScale: true)]
-    //private float forkTargetAngle;
 
     void Start()
     {
@@ -44,6 +35,13 @@ public class BikeScript : MonoBehaviour
         forkJoint.useMotor = true;
         HingeJoint pedalJoint = pedals.GetComponent<HingeJoint>();
         pedalJoint.useMotor = true;
+
+        Rigidbody frameRB = frame.GetComponent<Rigidbody>();
+        frameRB.centerOfMass = new Vector3(0, 0, 0);
+        Rigidbody forkRB = frame.GetComponent<Rigidbody>();
+        forkRB.centerOfMass = new Vector3(0, 0, 0);
+        Rigidbody pedalsRB = pedals.GetComponent<Rigidbody>();
+        pedalsRB.centerOfMass = new Vector3(0, 0, 0);
     }
 
     void Update()
@@ -103,7 +101,6 @@ public class BikeScript : MonoBehaviour
             }
 
             backWheelJoint.motor = backWheelMotor;
-
             targetPedalsAngle = backWheelJoint.angle;
         }
 
@@ -127,16 +124,9 @@ public class BikeScript : MonoBehaviour
             }
 
             pedalsJoint.motor = pedalsMotor;
-
-            DebugGUI.LogPersistent("pedalsTargetAngle", "pedalsTargetAngle " + (targetPedalsAngle).ToString("F3"));
-            DebugGUI.LogPersistent("pedalsAngle", "pedalsAngle " + (pedalsJoint.angle).ToString("F3"));
-            DebugGUI.LogPersistent("pedalsAngleDifference", "pedalsAngleDifference " + (angleDifference).ToString("F3"));
-
-            DebugGUI.LogPersistent("motorTargetVelocity", "motorTargetVelocity " + (pedalsJoint.motor.targetVelocity).ToString("F3"));
-            DebugGUI.LogPersistent("motorForce", "motorForce " + (pedalsJoint.motor.force).ToString("F3"));
         }
 
-        // steering control
+        // fork control
         {
             HingeJoint forkJoint = fork.GetComponent<HingeJoint>();
             JointMotor forkMotor = forkJoint.motor;
@@ -161,24 +151,12 @@ public class BikeScript : MonoBehaviour
                     forkMotor.targetVelocity = (float)(-steeringTargetSpeed * (1 - Math.Pow(Math.E, angleDifference / 5)));
                     forkMotor.force = (float)(steeringForce * (1 - Math.Pow(Math.E, angleDifference / 5)));
                 }
-
-                //forkTargetAngle = targetForkAngle;
-                //forkCurrentAngle = forkJoint.angle;
             }
 
             forkJoint.motor = forkMotor;
         }
 
-        //DebugGUI.LogPersistent("wheelTorqueTarget", "wheelTorqueTarget " + (backWheelMotor.force).ToString("F3"));
-        //DebugGUI.LogPersistent("wheelTorque", "wheelTorque " + (backWheel.GetComponentInChildren<HingeJoint>().motor.force).ToString("F3"));
-
-        //double wheelSpeed = /*radius*/ 1 * 2 * Math.PI * (backWheelJoint.velocity / 360.0f);
         bikeSpeedGraph = (float)frame.transform.InverseTransformDirection(frame.GetComponent<Rigidbody>().velocity).z;
-        //wheelSlipGraph = (float)Math.Round(wheelSpeed / bikeSpeedGraph, 2);
-
-        //DebugGUI.LogPersistent("wheelSpeed", "wheelSpeed " + (wheelSpeed).ToString("F3"));
-        DebugGUI.LogPersistent("speed", "speed " + (bikeSpeedGraph).ToString("F3"));
-        //DebugGUI.LogPersistent("wheelSlip", "wheelSlip " + (wheelSlipGraph).ToString("F3"));
     }
 
     public float ClosestDifferenceBetweenAnglesOfCircle(float currentAngle, float targetAngle, float minAngleLimit, float maxAngleLimit)
