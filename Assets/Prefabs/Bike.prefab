@@ -95,8 +95,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1425960336657863308}
   - component: {fileID: 1529598857100820508}
-  m_Layer: 7
-  m_Name: MeshCollider (2)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,8 +141,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7354569893914385239}
   - component: {fileID: 3637236270485445991}
-  m_Layer: 7
-  m_Name: MeshCollider (1)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -222,7 +222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3532285469809396146}
   m_Layer: 0
-  m_Name: MeshColliders
+  m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -255,8 +255,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2731017978828378713}
   - component: {fileID: 8840362793648996365}
-  m_Layer: 7
-  m_Name: MeshCollider (9)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -301,8 +301,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6732297971074550205}
   - component: {fileID: 5255860292385481482}
-  m_Layer: 7
-  m_Name: MeshCollider (5)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -433,8 +433,8 @@ GameObject:
   - component: {fileID: 8871645256128001388}
   - component: {fileID: 1363746969403193982}
   - component: {fileID: 7427872730297615172}
-  m_Layer: 6
-  m_Name: MeshCollider (8)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -493,8 +493,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1008597475962521848}
   - component: {fileID: 2670462722817125742}
-  m_Layer: 7
-  m_Name: MeshCollider (13)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -539,8 +539,8 @@ GameObject:
   m_Component:
   - component: {fileID: 626484444296325470}
   - component: {fileID: 951901568001331991}
-  m_Layer: 6
-  m_Name: MeshCollider (3)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -585,8 +585,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6252193763989702058}
   - component: {fileID: 7579638621617934139}
-  m_Layer: 6
-  m_Name: MeshCollider (2)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -631,8 +631,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2697442318984549642}
   - component: {fileID: 367073856371703897}
-  m_Layer: 6
-  m_Name: MeshCollider (1)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -748,8 +748,8 @@ HingeJoint:
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
+  m_BreakForce: 100000
+  m_BreakTorque: 100000
   m_EnableCollision: 0
   m_EnablePreprocessing: 1
   m_MassScale: 1
@@ -954,8 +954,8 @@ HingeJoint:
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
+  m_BreakForce: 100000
+  m_BreakTorque: 100000
   m_EnableCollision: 0
   m_EnablePreprocessing: 1
   m_MassScale: 1
@@ -990,7 +990,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4192343038610082017}
   - {fileID: 3972140058297524458}
   m_Father: {fileID: 8337254361356319479}
   m_RootOrder: 2
@@ -1120,8 +1119,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2557490164973762542}
   - component: {fileID: 4754290089959932101}
-  m_Layer: 6
-  m_Name: MeshCollider
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1187,7 +1186,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6043126668592564367}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &8742165923891085438
 MeshFilter:
@@ -1251,8 +1250,8 @@ GameObject:
   - component: {fileID: 2007484120865996488}
   - component: {fileID: 8437096025289435991}
   - component: {fileID: 6393438319235545510}
-  m_Layer: 6
-  m_Name: MeshCollider (1)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1563,8 +1562,8 @@ HingeJoint:
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
+  m_BreakForce: 100000
+  m_BreakTorque: 100000
   m_EnableCollision: 0
   m_EnablePreprocessing: 1
   m_MassScale: 1
@@ -1650,8 +1649,8 @@ HingeJoint:
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
+  m_BreakForce: 100000
+  m_BreakTorque: 100000
   m_EnableCollision: 0
   m_EnablePreprocessing: 1
   m_MassScale: 1
@@ -1666,8 +1665,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7039401997157299180}
   - component: {fileID: 2531257958094674689}
-  m_Layer: 7
-  m_Name: MeshCollider (8)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1712,8 +1711,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8094630711946641728}
   - component: {fileID: 6846837277662279239}
-  m_Layer: 6
-  m_Name: MeshCollider (7)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1829,8 +1828,8 @@ HingeJoint:
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
+  m_BreakForce: 50000
+  m_BreakTorque: 50000
   m_EnableCollision: 0
   m_EnablePreprocessing: 1
   m_MassScale: 1
@@ -1845,8 +1844,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4339004007843179869}
   - component: {fileID: 2889810612527164276}
-  m_Layer: 7
-  m_Name: MeshCollider (10)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1891,8 +1890,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3184318239483474849}
   - component: {fileID: 6629989584889855219}
-  m_Layer: 7
-  m_Name: MeshCollider
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1937,8 +1936,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5756453614175665127}
   - component: {fileID: 6860963676762798580}
-  m_Layer: 7
-  m_Name: MeshCollider (4)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1985,8 +1984,8 @@ GameObject:
   - component: {fileID: 3029922112643516070}
   - component: {fileID: 4974476431560815380}
   - component: {fileID: 4938721818897479612}
-  m_Layer: 7
-  m_Name: MeshCollider
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2059,8 +2058,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8623988442886698169}
   - component: {fileID: 4481604248678941171}
-  m_Layer: 6
-  m_Name: MeshCollider (4)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2104,8 +2103,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5305969161264799426}
-  m_Layer: 7
-  m_Name: MeshColliders
+  m_Layer: 0
+  m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2182,7 +2181,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5999356998100399956}
   serializedVersion: 2
-  m_Mass: 50
+  m_Mass: 4
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -2200,8 +2199,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8329756536279864954}
   - component: {fileID: 3835127729915982204}
-  m_Layer: 7
-  m_Name: MeshCollider (6)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2246,8 +2245,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8440978299337717653}
   - component: {fileID: 7195684233955303367}
-  m_Layer: 7
-  m_Name: MeshCollider (11)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2291,8 +2290,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3398426767394411353}
-  m_Layer: 6
-  m_Name: MeshColliders
+  m_Layer: 0
+  m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2334,8 +2333,8 @@ GameObject:
   - component: {fileID: 76647352994708194}
   - component: {fileID: 5945909411991503725}
   - component: {fileID: 3205419841226389607}
-  m_Layer: 6
-  m_Name: MeshCollider
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2492,8 +2491,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6757024502493930207}
   - component: {fileID: 3818080386275034508}
-  m_Layer: 7
-  m_Name: MeshCollider (3)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2538,8 +2537,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8407661573814833454}
   - component: {fileID: 3979253927335005706}
-  m_Layer: 7
-  m_Name: MeshCollider (12)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2574,52 +2573,6 @@ CapsuleCollider:
   m_Height: 0.32110626
   m_Direction: 1
   m_Center: {x: 0.02624684, y: -0.29126117, z: -0.02435058}
---- !u!1 &7693680305761120964
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4192343038610082017}
-  - component: {fileID: 8796310843723093127}
-  m_Layer: 6
-  m_Name: MeshCollider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4192343038610082017
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7693680305761120964}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6043126668592564367}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!64 &8796310843723093127
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7693680305761120964}
-  m_Material: {fileID: 13400000, guid: 68d7430d52a490b4a97eac4c44619b75, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 2853259475261631252, guid: 3847ac73540599a41bab8996135ce5d7, type: 3}
 --- !u!1 &7784757075055078719
 GameObject:
   m_ObjectHideFlags: 0
@@ -2630,8 +2583,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6564138695803810797}
   - component: {fileID: 3999109915344737922}
-  m_Layer: 6
-  m_Name: MeshCollider (6)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2676,8 +2629,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4815550745362475999}
   - component: {fileID: 4333095694854512505}
-  m_Layer: 6
-  m_Name: MeshCollider
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2793,8 +2746,8 @@ HingeJoint:
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
+  m_BreakForce: 50000
+  m_BreakTorque: 50000
   m_EnableCollision: 0
   m_EnablePreprocessing: 1
   m_MassScale: 1
@@ -2809,8 +2762,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1539474570838384373}
   - component: {fileID: 5031627229752760855}
-  m_Layer: 6
-  m_Name: MeshCollider (2)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2855,8 +2808,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7855552408303170950}
   - component: {fileID: 466488000023979358}
-  m_Layer: 7
-  m_Name: MeshCollider (7)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2902,8 +2855,8 @@ GameObject:
   - component: {fileID: 2017422813783977153}
   - component: {fileID: 289903803320328426}
   - component: {fileID: 872696216730529881}
-  m_Layer: 6
-  m_Name: MeshCollider
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2935,7 +2888,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.012607425
-  m_Height: 0.40135604
+  m_Height: 0.475
   m_Direction: 0
   m_Center: {x: -0.00040781498, y: 0.17252156, z: -0.0022533238}
 --- !u!136 &872696216730529881
@@ -2962,8 +2915,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6002505188494873697}
   - component: {fileID: 495036063424813816}
-  m_Layer: 6
-  m_Name: MeshCollider (5)
+  m_Layer: 0
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

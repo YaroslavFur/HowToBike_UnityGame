@@ -11,6 +11,7 @@ public class BikeScript : MonoBehaviour
     [SerializeField] private GameObject fork;
     [SerializeField] private GameObject frame;
     [SerializeField] private GameObject pedals;
+    [SerializeField] private GameObject chain;
 
     [SerializeField] private float targetMaximumSpeed;
     [SerializeField] private float accelerationMotorForce;
@@ -19,13 +20,18 @@ public class BikeScript : MonoBehaviour
     [SerializeField, Range(0, 5)] private float steeringSensitivity;
     [SerializeField] private float steeringTargetSpeed;
     [SerializeField] private float steeringForce;
-    private const float pedalsTargetSpeed = 10000, pedalsForce = 100000;
+    private const float pedalsFollowTargetSpeed = 100000, pedalsFollowForce = 100000, backWheelFollowTargetSpeed = 1000, backWheelFollowForce = 10;
 
     private bool acceleration = false, braking = false, steering = false;
     private float mouseInitialSteeringPosition = 0, forkInitialSteeringAngle = 0;
 
     [DebugGUIGraph(group: 1, min: 0, max: 10f, r: 0, g: 1, b: 0, autoScale: true)]
     private float bikeSpeedGraph;
+
+    [DebugGUIGraph(group: 1, min: 0, max: 10f, r: 1, g: 0, b: 0, autoScale: true)]
+    private float wheelSpeedGraph;
+
+    private Vector3 com = new Vector3(0, 0.4f, 0);
 
     void Start()
     {
@@ -36,12 +42,17 @@ public class BikeScript : MonoBehaviour
         HingeJoint pedalJoint = pedals.GetComponent<HingeJoint>();
         pedalJoint.useMotor = true;
 
-        Rigidbody frameRB = frame.GetComponent<Rigidbody>();
-        frameRB.centerOfMass = new Vector3(0, 0, 0);
-        Rigidbody forkRB = frame.GetComponent<Rigidbody>();
+        Rigidbody forkRB = fork.GetComponent<Rigidbody>();
         forkRB.centerOfMass = new Vector3(0, 0, 0);
         Rigidbody pedalsRB = pedals.GetComponent<Rigidbody>();
         pedalsRB.centerOfMass = new Vector3(0, 0, 0);
+
+        Rigidbody backWheelRB = backWheel.GetComponent<Rigidbody>();
+        backWheelRB.maxAngularVelocity = Mathf.Infinity;
+        Rigidbody frontWheelRB = frontWheel.GetComponent<Rigidbody>();
+        frontWheelRB.maxAngularVelocity = Mathf.Infinity;
+        forkRB.maxAngularVelocity = Mathf.Infinity;
+        pedalsRB.maxAngularVelocity = Mathf.Infinity;
     }
 
     void Update()
@@ -64,10 +75,12 @@ public class BikeScript : MonoBehaviour
                 steering = true;
 
                 mouseInitialSteeringPosition = Input.mousePosition.x / Screen.width;
-                forkInitialSteeringAngle = Math.Clamp(fork.GetComponent<HingeJoint>().angle, -90, 90);
 
-                DebugGUI.LogPersistent("mousePivotSteeringPosition", "mousePivotSteeringPosition " + (mouseInitialSteeringPosition).ToString("F3"));
-                DebugGUI.LogPersistent("forkPivotSteeringPosition", "forkPivotSteeringPosition " + (forkInitialSteeringAngle).ToString("F3"));
+                HingeJoint forkJoint = fork.GetComponent<HingeJoint>();
+                if (forkJoint)
+                {
+                    forkInitialSteeringAngle = Math.Clamp(fork.GetComponent<HingeJoint>().angle, -90, 90);
+                }
             }
             else
             {
@@ -78,10 +91,13 @@ public class BikeScript : MonoBehaviour
 
     public void FixedUpdate()
     {
-        // backWheel control
-        float targetPedalsAngle;
+        float targetPedalsAngle = 0;
+
+        HingeJoint backWheelJoint = backWheel.GetComponent<HingeJoint>();
+
+        // backWheel control    
+        if (backWheelJoint)
         {
-            HingeJoint backWheelJoint = backWheel.GetComponent<HingeJoint>();
             JointMotor backWheelMotor = backWheelJoint.motor;
 
             if (acceleration)
@@ -104,9 +120,13 @@ public class BikeScript : MonoBehaviour
             targetPedalsAngle = backWheelJoint.angle;
         }
 
+        HingeJoint pedalsJoint = pedals.GetComponent<HingeJoint>();
+
         // pedals control
+        if (pedalsJoint)
         {
-            HingeJoint pedalsJoint = pedals.GetComponent<HingeJoint>();
+            JointMotor backWheelMotor = backWheelJoint.motor;
+
             JointMotor pedalsMotor = pedalsJoint.motor;
 
             float angleDifference = ClosestDifferenceBetweenAnglesOfCircle(pedalsJoint.angle, targetPedalsAngle, -180, 180);
@@ -114,21 +134,35 @@ public class BikeScript : MonoBehaviour
             if (angleDifference > 0)
             {
                 // formula (y=1-e^-x) - the closer x to 0, the less y is
-                pedalsMotor.targetVelocity = (float)(pedalsTargetSpeed * (1 - Math.Pow(Math.E, -angleDifference / 180)));
-                pedalsMotor.force = (float)(pedalsForce * (1 - Math.Pow(Math.E, -angleDifference / 180)));
+                float followCoeficient = (float)(1 - Math.Pow(Math.E, -angleDifference / 180));
+
+                pedalsMotor.targetVelocity = pedalsFollowTargetSpeed * followCoeficient;
+                pedalsMotor.force = pedalsFollowForce * followCoeficient;
+
+                backWheelMotor.targetVelocity += -backWheelFollowTargetSpeed * followCoeficient;
+                backWheelMotor.force += backWheelFollowForce * followCoeficient;
             }
             else if (angleDifference < 0)
             {
-                pedalsMotor.targetVelocity = (float)(-pedalsTargetSpeed * (1 - Math.Pow(Math.E, angleDifference / 180)));
-                pedalsMotor.force = (float)(pedalsForce * (1 - Math.Pow(Math.E, angleDifference / 180)));
+                float followCoeficient = (float)(1 - Math.Pow(Math.E, angleDifference / 180));
+
+                pedalsMotor.targetVelocity = -pedalsFollowTargetSpeed * followCoeficient;
+                pedalsMotor.force = pedalsFollowForce * followCoeficient;
+
+                backWheelMotor.targetVelocity += backWheelFollowTargetSpeed * followCoeficient;
+                backWheelMotor.force += backWheelFollowForce * followCoeficient;
             }
+
+            backWheelJoint.motor = backWheelMotor;
 
             pedalsJoint.motor = pedalsMotor;
         }
 
+        HingeJoint forkJoint = fork.GetComponent<HingeJoint>();
+
         // fork control
+        if (forkJoint)
         {
-            HingeJoint forkJoint = fork.GetComponent<HingeJoint>();
             JointMotor forkMotor = forkJoint.motor;
 
             forkMotor.targetVelocity = 0;
@@ -154,6 +188,16 @@ public class BikeScript : MonoBehaviour
             }
 
             forkJoint.motor = forkMotor;
+        }
+
+        // free chain if backWheel or pedals are broken
+        if (!pedalsJoint || !backWheelJoint)
+        {
+            FixedJoint chainJoint = chain.GetComponent<FixedJoint>();
+            if (chainJoint)
+            {
+                Destroy(chainJoint);
+            }
         }
 
         bikeSpeedGraph = (float)frame.transform.InverseTransformDirection(frame.GetComponent<Rigidbody>().velocity).z;
