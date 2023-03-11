@@ -62,7 +62,7 @@ CharacterJoint:
   m_GameObject: {fileID: 16835997094387069}
   m_ConnectedBody: {fileID: 1374190579556639976}
   m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: 0, y: 0.15, z: 0}
+  m_Anchor: {x: 0, y: 0.16981974, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
@@ -72,11 +72,11 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -23.09573
+    limit: -10
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 13.848189
+    limit: 10
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
@@ -96,7 +96,7 @@ CharacterJoint:
   m_BreakForce: 40000
   m_BreakTorque: 40000
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &55257680088296472
@@ -829,7 +829,7 @@ CharacterJoint:
   m_BreakForce: 20000
   m_BreakTorque: 20000
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &1434093205115384011
@@ -985,7 +985,7 @@ CharacterJoint:
   m_GameObject: {fileID: 1776249942495390552}
   m_ConnectedBody: {fileID: 1374190579556639976}
   m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: 0, y: -0.15, z: 0}
+  m_Anchor: {x: 0, y: -0.18666604, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
@@ -995,11 +995,11 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -19.406385
+    limit: -10
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 14.233393
+    limit: 10
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
@@ -1019,7 +1019,7 @@ CharacterJoint:
   m_BreakForce: 40000
   m_BreakTorque: 40000
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &1841721877486629304
@@ -1411,7 +1411,7 @@ CharacterJoint:
   m_BreakForce: 20000
   m_BreakTorque: 20000
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &2949803508804394172
@@ -1509,7 +1509,7 @@ CharacterJoint:
   m_BreakForce: 20000
   m_BreakTorque: 20000
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &2970192856613865934
@@ -1969,7 +1969,7 @@ CharacterJoint:
   m_BreakForce: 20000
   m_BreakTorque: 20000
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &3238794636594592891
@@ -2112,7 +2112,7 @@ CharacterJoint:
   m_BreakForce: 20000
   m_BreakTorque: 20000
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &3352092381728865607
@@ -2745,7 +2745,7 @@ CharacterJoint:
   m_BreakForce: 20000
   m_BreakTorque: 20000
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &4463693889900411685
@@ -3039,7 +3039,7 @@ CharacterJoint:
   m_BreakForce: 20000
   m_BreakTorque: 20000
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &4795053854423619737
@@ -3944,7 +3944,7 @@ CharacterJoint:
   m_BreakForce: 20000
   m_BreakTorque: 20000
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &6113910662913688380
@@ -4042,7 +4042,7 @@ CharacterJoint:
   m_BreakForce: 20000
   m_BreakTorque: 20000
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &6231357294626165740
@@ -4630,7 +4630,7 @@ CharacterJoint:
   m_BreakForce: 20000
   m_BreakTorque: 20000
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &6865256156777021946
@@ -4878,7 +4878,7 @@ CharacterJoint:
   m_BreakForce: 20000
   m_BreakTorque: 20000
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &7162550596386768064
@@ -5188,7 +5188,7 @@ CharacterJoint:
   m_BreakForce: 20000
   m_BreakTorque: 20000
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &7827357744680523475
@@ -5567,7 +5567,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8217446583437010760}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1.143889, z: 0.007628505}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5735,7 +5735,7 @@ CharacterJoint:
   m_BreakForce: 20000
   m_BreakTorque: 20000
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &8570900837816162672
@@ -5916,7 +5916,7 @@ CharacterJoint:
   m_BreakForce: 20000
   m_BreakTorque: 20000
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &8755856755179329343
