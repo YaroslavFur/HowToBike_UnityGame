@@ -11,6 +11,8 @@ public class BikeInit : MonoBehaviour
     [SerializeField] private GameObject fork;
     [SerializeField] private GameObject frame;
     [SerializeField] private GameObject pedals;
+    [SerializeField] private GameObject leftPedal;
+    [SerializeField] private GameObject rightPedal;
 
     void Awake()
     {
@@ -36,5 +38,11 @@ public class BikeInit : MonoBehaviour
         Rigidbody pedalsRB = pedals.GetComponent<Rigidbody>();
         pedalsRB.centerOfMass = new Vector3(0, 0, 0);
         pedalsRB.maxAngularVelocity = Mathf.Infinity;
+
+        Rigidbody leftPedalRB = leftPedal.GetComponent<Rigidbody>();
+        leftPedalRB.maxAngularVelocity = Mathf.Infinity;
+
+        Rigidbody rightPedalRB = rightPedal.GetComponent<Rigidbody>();
+        rightPedalRB.maxAngularVelocity = Mathf.Infinity;
     }
 }

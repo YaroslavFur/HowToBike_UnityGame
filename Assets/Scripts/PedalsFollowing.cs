@@ -9,10 +9,15 @@ public class PedalsFollowing : MonoBehaviour
 
     private HingeJoint backWheelJoint;
     private HingeJoint pedalsJoint;
-    private float angleDifference;
 
-    private const float pedalsFollowTargetSpeed = 100000, pedalsFollowForce = 100000, backWheelFollowTargetSpeed = 1000, backWheelFollowForce = 10;
+    private float pedalsCurrentAngle = 0;
+    private float pedalsLastAngle = 0;
+    private float pedalsVelocityReal = 0;
+    private float velocityDifference = 0;
+    private float followCoeficient = 0;
 
+    private const float pedalsFollowForce = 100, backWheelFollowForce = 100;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -20,42 +25,30 @@ public class PedalsFollowing : MonoBehaviour
         pedalsJoint = GetComponent<HingeJoint>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void MakePedalsFollow()
     {
         if (backWheelJoint && pedalsJoint)
         {
             JointMotor backWheelMotor = backWheelJoint.motor;
             JointMotor pedalsMotor = pedalsJoint.motor;
 
-            angleDifference = GeometryCalculator.ClosestDifferenceBetweenAnglesOfCircle(pedalsJoint.angle, backWheelJoint.angle, -180, 180);
+            pedalsLastAngle = pedalsCurrentAngle;
+            pedalsCurrentAngle = pedalsJoint.angle;
+            pedalsVelocityReal = GeometryCalculator.ClosestDifferenceBetweenAnglesOfCircle(pedalsLastAngle, pedalsCurrentAngle, -180, 180) / Time.fixedDeltaTime;
 
-            if (angleDifference > 0)
-            {
-                // formula (y=1-e^-x) - the closer x to 0, the less y is
-                float followCoeficient = (float)(1 - Math.Pow(Math.E, -angleDifference / 180));
+            velocityDifference = backWheelJoint.velocity - pedalsVelocityReal;
 
-                pedalsMotor.targetVelocity = pedalsFollowTargetSpeed * followCoeficient;
-                pedalsMotor.force = pedalsFollowForce * followCoeficient;
+            followCoeficient = (float)(1 - Math.Pow(Math.E, (velocityDifference < 0 ? velocityDifference : -velocityDifference) / 1000));
 
-                backWheelMotor.targetVelocity = backWheelJoint.velocity + (-backWheelFollowTargetSpeed * followCoeficient);
-                if (backWheelMotor.force == 0)
-                    backWheelMotor.force = backWheelFollowForce * followCoeficient;
-            }
-            else if (angleDifference < 0)
-            {
-                float followCoeficient = (float)(1 - Math.Pow(Math.E, angleDifference / 180));
+            pedalsMotor.targetVelocity = backWheelJoint.velocity;
+            pedalsMotor.force = pedalsFollowForce * followCoeficient;
 
-                pedalsMotor.targetVelocity = -pedalsFollowTargetSpeed * followCoeficient;
-                pedalsMotor.force = pedalsFollowForce * followCoeficient;
-
-                backWheelMotor.targetVelocity = backWheelJoint.velocity + (backWheelFollowTargetSpeed * followCoeficient);
-                if (backWheelMotor.force == 0)
-                    backWheelMotor.force = backWheelFollowForce * followCoeficient;
-            }
+            backWheelMotor.targetVelocity += (-velocityDifference * followCoeficient);
+            backWheelMotor.force += backWheelFollowForce * followCoeficient;
 
             backWheelJoint.motor = backWheelMotor;
             pedalsJoint.motor = pedalsMotor;
+
         }
     }
 }

@@ -9,8 +9,11 @@ public class BikeGasAndBrake : MonoBehaviour
     [SerializeField] public float targetBrakeSpeed;
     [SerializeField] public float brakeMotorForce;
 
+    [SerializeField] public PedalsFollowing PedalsFollowingScript;
+
     [HideInInspector] public bool acceleration = false, braking = false;
     private HingeJoint backWheelJoint;
+
 
     // Start is called before the first frame update
     void Start()
@@ -25,31 +28,16 @@ public class BikeGasAndBrake : MonoBehaviour
         if (Input.GetKey(KeyCode.UpArrow))
             acceleration = true;
         else
-        {
-            if (acceleration == true)
-            {
-                if (backWheelJoint)
-                {
-                    SetHingeJointMotorVelocityAndForce(backWheelJoint, 0, 0);
-                }
-                acceleration = false;
-            }
-        }
+            acceleration = false;
 
         if (Input.GetKey(KeyCode.DownArrow))
             braking = true;
         else
-        {
-            if (braking == true)
-            {
-                if (backWheelJoint)
-                {
-                    SetHingeJointMotorVelocityAndForce(backWheelJoint, 0, 0);
-                }
-                braking = false;
-            }
-        }
-    
+            braking = false;
+    }
+
+    void FixedUpdate()
+    {
         if (backWheelJoint)
         {
             if (acceleration)
@@ -60,7 +48,13 @@ public class BikeGasAndBrake : MonoBehaviour
             {
                 SetHingeJointMotorVelocityAndForce(backWheelJoint, targetBrakeSpeed, brakeMotorForce);
             }
+            else
+            {
+                SetHingeJointMotorVelocityAndForce(backWheelJoint, 0, 0);
+            }
         }
+
+        PedalsFollowingScript.MakePedalsFollow();
     }
 
     private void SetHingeJointMotorVelocityAndForce(HingeJoint joint, float velocity, float force)
